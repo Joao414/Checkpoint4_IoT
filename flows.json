@@ -1,0 +1,303 @@
+[
+    {
+        "id": "82b37a0346771a42",
+        "type": "tab",
+        "label": "Checkpoint4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b34b72079d470bdb",
+        "type": "mqtt in",
+        "z": "82b37a0346771a42",
+        "name": "",
+        "topic": "FiltroTag/1",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "4f52f8a67fd54e26",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 240,
+        "y": 720,
+        "wires": [
+            [
+                "12640e545cc03341"
+            ]
+        ]
+    },
+    {
+        "id": "12767355b3309b62",
+        "type": "inject",
+        "z": "82b37a0346771a42",
+        "name": "simulador de rfid",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "{\"tagrfid\":\"A0 23 B5 32\"}",
+        "payloadType": "json",
+        "x": 280,
+        "y": 460,
+        "wires": [
+            [
+                "a33c4cb217121561",
+                "c775bfdb7868867c",
+                "ce951c1926ccfcaf"
+            ]
+        ]
+    },
+    {
+        "id": "ce951c1926ccfcaf",
+        "type": "mqtt out",
+        "z": "82b37a0346771a42",
+        "name": "",
+        "topic": "TagRFID",
+        "qos": "0",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "69ea7739746bac13",
+        "x": 580,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "12640e545cc03341",
+        "type": "json",
+        "z": "82b37a0346771a42",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 510,
+        "y": 720,
+        "wires": [
+            [
+                "148052a160739924",
+                "75992f7843241f65"
+            ]
+        ]
+    },
+    {
+        "id": "4b87cec4ee938131",
+        "type": "telegram sender",
+        "z": "82b37a0346771a42",
+        "name": "Telegram Sender",
+        "bot": "16aa95b3e579e79e",
+        "haserroroutput": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c775bfdb7868867c",
+        "type": "function",
+        "z": "82b37a0346771a42",
+        "name": "MensagemEnviada",
+        "func": "msg.payload = {\n    content: msg.payload.tagrfid,\n    type : 'message',\n    chatId: 1893041672\n};\n\nreturn msg;\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 540,
+        "wires": [
+            [
+                "4b87cec4ee938131"
+            ]
+        ]
+    },
+    {
+        "id": "a33c4cb217121561",
+        "type": "debug",
+        "z": "82b37a0346771a42",
+        "name": "debug 14",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "148052a160739924",
+        "type": "debug",
+        "z": "82b37a0346771a42",
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "75992f7843241f65",
+        "type": "change",
+        "z": "82b37a0346771a42",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.tagrfid",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 840,
+        "wires": [
+            [
+                "4b38e6679d9c10ce"
+            ]
+        ]
+    },
+    {
+        "id": "4b38e6679d9c10ce",
+        "type": "ui_text",
+        "z": "82b37a0346771a42",
+        "group": "469519207d22cd20",
+        "order": 0,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "Tagrfid",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "x": 1050,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "4f52f8a67fd54e26",
+        "type": "mqtt-broker",
+        "name": "FiltroTag",
+        "broker": "broker.mqttdashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "69ea7739746bac13",
+        "type": "mqtt-broker",
+        "name": "TagRFID",
+        "broker": "broker.mqttdashboard.com",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "16aa95b3e579e79e",
+        "type": "telegram bot",
+        "botname": "RFID_bot",
+        "usernames": "",
+        "chatids": "",
+        "baseapiurl": "",
+        "updatemode": "polling",
+        "pollinterval": "300",
+        "usesocks": false,
+        "sockshost": "",
+        "socksport": "6667",
+        "socksusername": "anonymous",
+        "sockspassword": "",
+        "bothost": "",
+        "botpath": "",
+        "localbotport": "8443",
+        "publicbotport": "8443",
+        "privatekey": "",
+        "certificate": "",
+        "useselfsignedcertificate": false,
+        "sslterminated": false,
+        "verboselogging": false
+    },
+    {
+        "id": "469519207d22cd20",
+        "type": "ui_group",
+        "name": "Default",
+        "tab": "1128d52a74959146",
+        "order": 2,
+        "disp": true,
+        "width": "6",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1128d52a74959146",
+        "type": "ui_tab",
+        "name": "Home",
+        "icon": "dashboard",
+        "disabled": false,
+        "hidden": false
+    }
+]
