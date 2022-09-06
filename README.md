@@ -15,3 +15,8 @@ O fluxo localizado abaixo inicia com um nó "mqttt in" que irá pegar a tag que 
 Fluxo completo:
 
 ![image](https://user-images.githubusercontent.com/79977429/188536673-8feac693-65f4-4f1c-9df8-45a6f0400e8c.png)
+
+
+#Integrantes:
+João Batista Souza do Nascimento RM: 88298
+Luan de oliveira Brito Sousa     RM: 89352
